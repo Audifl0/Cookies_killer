@@ -1,10 +1,8 @@
 import Phaser from 'phaser';
 
-type ParticleEmitterManager = Phaser.GameObjects.Particles.ParticleEmitterManager;
-
 export default class Particles {
   scene: Phaser.Scene;
-  emitter?: ParticleEmitterManager;
+  emitter?: Phaser.GameObjects.Particles.ParticleEmitter;
 
   constructor(scene: Phaser.Scene) {
     this.scene = scene;
@@ -19,8 +17,12 @@ export default class Particles {
       g.destroy();
     }
     this.emitter = this.scene.add.particles(0, 0, 'particle', {
-      x: { min: 0, max: this.scene.scale.width },
-      y: 0,
+      x: {
+        onEmit: () => Phaser.Math.Between(0, this.scene.scale.width)
+      },
+      y: {
+        onEmit: () => 0
+      },
       lifespan: 5000,
       speedY: { min: 30, max: 120 },
       scale: { start: 0.5, end: 0 },
@@ -31,10 +33,6 @@ export default class Particles {
   }
 
   update(_delta: number): void {
-    if (!this.emitter) return;
-    this.emitter.setEmitZone({
-      type: 'random',
-      source: new Phaser.Geom.Rectangle(0, 0, this.scene.scale.width, 10)
-    });
+    // Width is resolved lazily inside the emitter configuration callbacks, so no per-frame work is required here.
   }
 }
