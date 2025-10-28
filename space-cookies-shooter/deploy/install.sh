@@ -12,4 +12,8 @@ fi
 nvm install --lts
 nvm use --lts
 
-npm ci
+if [ -f package-lock.json ]; then
+  npm ci || npm install
+else
+  npm install
+fi

@@ -47,6 +47,8 @@ npm install
 npm run dev
 ```
 
+> 💡 **Astuce CI/CD** : un `package-lock.json` est fourni pour les environnements automatisés. Si vous rencontrez des restrictions proxy qui empêchent `npm ci` de s’exécuter (cas des environnements hors-ligne), exécutez d’abord `npm install` pour régénérer le lockfile localement puis relancez `npm ci` si nécessaire.
+
 Le serveur Vite s’ouvre automatiquement sur `http://localhost:5173`. Le jeu est responsive et s’adapte au plein écran.
 
 ### Scripts NPM
