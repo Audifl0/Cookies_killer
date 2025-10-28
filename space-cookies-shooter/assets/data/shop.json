@@ -1,0 +1,44 @@
+{
+  "version": 1,
+  "tiers": [
+    {
+      "category": "weapons",
+      "items": [
+        { "id": "rapid_cannon", "cost": 120 },
+        { "id": "triple_shot", "cost": 180 },
+        { "id": "railgun", "cost": 260 },
+        { "id": "homing_missile", "cost": 320 },
+        { "id": "beam", "cost": 280 }
+      ]
+    },
+    {
+      "category": "defense",
+      "items": [
+        { "id": "shield_mk1", "name": "Bouclier MK.I", "cost": 150, "modifier": { "shield": 25 } },
+        { "id": "shield_mk2", "name": "Bouclier MK.II", "cost": 260, "modifier": { "shield": 40 } },
+        { "id": "hull_mk1", "name": "Coque Renforcée", "cost": 180, "modifier": { "hp": 30 } }
+      ]
+    },
+    {
+      "category": "mobility",
+      "items": [
+        { "id": "thruster_mk1", "name": "Propulseur MK.I", "cost": 120, "modifier": { "speed": 15 } },
+        { "id": "thruster_mk2", "name": "Propulseur MK.II", "cost": 220, "modifier": { "speed": 30 } }
+      ]
+    },
+    {
+      "category": "drones",
+      "items": [
+        { "id": "drone_support", "name": "Drone de Support", "cost": 210, "modifier": { "drone": "support" } },
+        { "id": "drone_attack", "name": "Drone d'Attaque", "cost": 260, "modifier": { "drone": "attack" } }
+      ]
+    },
+    {
+      "category": "magnet",
+      "items": [
+        { "id": "magnet_mk1", "name": "Aimant Basique", "cost": 90, "modifier": { "pickupRange": 30 } },
+        { "id": "magnet_mk2", "name": "Aimant Avancé", "cost": 180, "modifier": { "pickupRange": 60 } }
+      ]
+    }
+  ]
+}

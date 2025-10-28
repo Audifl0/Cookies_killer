@@ -1,0 +1,90 @@
+{
+  "version": 1,
+  "settings": {
+    "miniBossInterval": 5,
+    "bossInterval": 10,
+    "breakDuration": 8
+  },
+  "waves": [
+    {
+      "id": 1,
+      "enemies": [
+        { "type": "cookie_croustillant", "count": 10 },
+        { "type": "cookie_emiette", "count": 15 }
+      ]
+    },
+    {
+      "id": 2,
+      "enemies": [
+        { "type": "cookie_croustillant", "count": 12 },
+        { "type": "cookie_glace", "count": 6 }
+      ]
+    },
+    {
+      "id": 3,
+      "enemies": [
+        { "type": "cookie_fourre", "count": 4 },
+        { "type": "cookie_chocolate", "count": 6 }
+      ]
+    },
+    {
+      "id": 4,
+      "enemies": [
+        { "type": "cookie_emiette", "count": 25 },
+        { "type": "cookie_caramel", "count": 5 }
+      ]
+    },
+    {
+      "id": 5,
+      "miniBoss": "biscuit_leviathan",
+      "enemies": [
+        { "type": "cookie_chocolate", "count": 8 }
+      ]
+    },
+    {
+      "id": 6,
+      "enemies": [
+        { "type": "cookie_fourre", "count": 6 },
+        { "type": "cookie_glace", "count": 8 }
+      ]
+    },
+    {
+      "id": 7,
+      "enemies": [
+        { "type": "cookie_caramel", "count": 8 },
+        { "type": "cookie_emiette", "count": 30 }
+      ]
+    },
+    {
+      "id": 8,
+      "enemies": [
+        { "type": "cookie_chocolate", "count": 12 },
+        { "type": "cookie_glace", "count": 10 }
+      ]
+    },
+    {
+      "id": 9,
+      "enemies": [
+        { "type": "cookie_fourre", "count": 10 },
+        { "type": "cookie_caramel", "count": 10 }
+      ]
+    },
+    {
+      "id": 10,
+      "boss": "gateau_sombre",
+      "enemies": []
+    },
+    {
+      "id": 11,
+      "enemies": [
+        { "type": "cookie_emiette", "count": 35 },
+        { "type": "cookie_chocolate", "count": 10 }
+      ]
+    },
+    {
+      "id": 15,
+      "boss": "roi_cookie",
+      "enemies": []
+    }
+  ]
+}
