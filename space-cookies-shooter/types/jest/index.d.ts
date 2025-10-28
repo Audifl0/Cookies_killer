@@ -18,7 +18,22 @@ declare namespace jest {
     toEqual(expected: unknown): R;
     toBeCloseTo(expected: number, precision?: number): R;
     toBeGreaterThan(expected: number): R;
+    toBeGreaterThanOrEqual(expected: number): R;
     toBeLessThan(expected: number): R;
+    toBeLessThanOrEqual(expected: number): R;
     toThrow(error?: unknown): R;
   }
+
+  interface Mock<TArgs extends any[] = any[], TReturn = any> {
+    (...args: TArgs): TReturn;
+    mockImplementation(fn: (...args: TArgs) => TReturn): Mock<TArgs, TReturn>;
+  }
+
+  function fn<TArgs extends any[] = any[], TReturn = any>(
+    implementation?: (...args: TArgs) => TReturn
+  ): Mock<TArgs, TReturn>;
 }
+
+declare const jest: {
+  fn: typeof jest.fn;
+};

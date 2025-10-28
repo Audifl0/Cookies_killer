@@ -59,7 +59,8 @@ export default class InputManager {
           this.autofireEnabled = !this.autofireEnabled;
           this.state.autofire = this.autofireEnabled;
         } else if (action in this.state) {
-          (this.state as Record<string, boolean>)[action] = pressed;
+          const key = action as keyof InputState;
+          this.state[key] = pressed;
         }
       }
     });

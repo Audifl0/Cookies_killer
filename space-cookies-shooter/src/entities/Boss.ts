@@ -4,16 +4,17 @@ import { BossData } from '@core/Types';
 import Player from './Player';
 
 export default class Boss extends Phaser.Physics.Arcade.Sprite {
-  data: BossData;
+  bossData: BossData;
   hp: number;
   phaseIndex = 0;
   attackTimer = 0;
 
   constructor(scene: Phaser.Scene, x: number, y: number, data: BossData) {
     super(scene, x, y, data.id);
-    this.data = data;
+    this.bossData = data;
     this.hp = data.hp;
     this.createTexture();
+    scene.add.existing(this);
     scene.physics.add.existing(this);
     this.setCircle(80);
     this.setDepth(20);
@@ -22,18 +23,23 @@ export default class Boss extends Phaser.Physics.Arcade.Sprite {
   }
 
   createTexture(): void {
-    const g = this.scene.add.graphics();
-    g.fillStyle(0x1e2436, 1);
-    g.fillCircle(160, 160, 150);
-    g.lineStyle(12, 0xf6c177);
-    g.strokeCircle(160, 160, 150);
-    g.generateTexture(this.data.id, 320, 320);
-    g.destroy();
+    if (!this.scene.textures.exists(this.bossData.id)) {
+      const g = this.scene.add.graphics();
+      g.fillStyle(0x1e2436, 1);
+      g.fillCircle(160, 160, 150);
+      g.lineStyle(12, 0xf6c177);
+      g.strokeCircle(160, 160, 150);
+      g.generateTexture(this.bossData.id, 320, 320);
+      g.destroy();
+    }
+    this.setTexture(this.bossData.id);
   }
 
   currentPhase(): string {
-    const ratio = this.hp / this.data.hp;
-    const phase = this.data.phases.find((p) => ratio <= p.threshold) ?? this.data.phases[this.data.phases.length - 1];
+    const ratio = this.hp / this.bossData.hp;
+    const phase =
+      this.bossData.phases.find((p) => ratio <= p.threshold) ??
+      this.bossData.phases[this.bossData.phases.length - 1];
     return phase.pattern;
   }
 
@@ -45,7 +51,8 @@ export default class Boss extends Phaser.Physics.Arcade.Sprite {
       this.scene.events.emit('boss-attack', this, direction, pattern);
       this.attackTimer = 2000;
     }
-    this.body?.velocity.copy(direction.scale(60));
+    const body = this.body as Phaser.Physics.Arcade.Body | undefined;
+    body?.velocity.copy(direction.scale(60));
   }
 
   applyDamage(amount: number): boolean {

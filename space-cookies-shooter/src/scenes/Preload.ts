@@ -15,21 +15,26 @@ export default class Preload extends Phaser.Scene {
     this.load.json('shop', 'data/shop.json');
     this.load.json('skills', 'data/skills.json');
 
-    const musicBuffer = this.sound.context.createBuffer(1, 44100, 44100);
-    const data = musicBuffer.getChannelData(0);
-    for (let i = 0; i < data.length; i += 1) {
-      data[i] = Math.sin(i / 32) * 0.2 * Math.sin(i / 128);
-    }
-    const musicKey = 'bg-music';
-    this.cache.audio.add(musicKey, { buffer: musicBuffer });
+    const soundManager = this.sound as Phaser.Sound.BaseSoundManager & {
+      context?: AudioContext;
+    };
+    if (soundManager.context) {
+      const musicBuffer = soundManager.context.createBuffer(1, 44100, 44100);
+      const data = musicBuffer.getChannelData(0);
+      for (let i = 0; i < data.length; i += 1) {
+        data[i] = Math.sin(i / 32) * 0.2 * Math.sin(i / 128);
+      }
+      const musicKey = 'bg-music';
+      this.cache.audio.add(musicKey, { buffer: musicBuffer });
 
-    const sfxBuffer = this.sound.context.createBuffer(1, 8000, 44100);
-    const sfx = sfxBuffer.getChannelData(0);
-    for (let i = 0; i < sfx.length; i += 1) {
-      sfx[i] = Math.random() * 0.4 - 0.2;
+      const sfxBuffer = soundManager.context.createBuffer(1, 8000, 44100);
+      const sfx = sfxBuffer.getChannelData(0);
+      for (let i = 0; i < sfx.length; i += 1) {
+        sfx[i] = Math.random() * 0.4 - 0.2;
+      }
+      this.cache.audio.add('sfx-shot', { buffer: sfxBuffer });
+      this.cache.audio.add('sfx-hit', { buffer: sfxBuffer });
     }
-    this.cache.audio.add('sfx-shot', { buffer: sfxBuffer });
-    this.cache.audio.add('sfx-hit', { buffer: sfxBuffer });
 
     this.load.on('progress', (value: number) => {
       this.cameras.main.setBackgroundColor('#0d0f1a');

@@ -34,8 +34,10 @@ export default class Spawner {
   }
 
   update(delta: number, player: Player): void {
-    this.enemyGroup.children.each((child) => {
-      const enemy = child as Phaser.Physics.Arcade.Sprite & { updateBehavior?: (player: Player, delta: number) => void };
+    this.enemyGroup.getChildren().forEach((child) => {
+      const enemy = child as Phaser.Physics.Arcade.Sprite & {
+        updateBehavior?: (player: Player, delta: number) => void;
+      };
       enemy.updateBehavior?.(player, delta);
     });
   }

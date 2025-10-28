@@ -1,6 +1,6 @@
 import Phaser from 'phaser';
 
-export default class Missile extends Phaser.Physics.Arcade.Image {
+export default class Missile extends Phaser.Physics.Arcade.Sprite {
   damage = 40;
   target?: Phaser.Physics.Arcade.Sprite;
   speed = 300;
@@ -10,14 +10,21 @@ export default class Missile extends Phaser.Physics.Arcade.Image {
   constructor(scene: Phaser.Scene) {
     super(scene, 0, 0, 'missile');
     this.createTexture();
+    scene.add.existing(this);
+    scene.physics.add.existing(this);
+    this.setActive(false);
+    this.setVisible(false);
+    (this.body as Phaser.Physics.Arcade.Body).allowGravity = false;
   }
 
   createTexture(): void {
-    const g = this.scene.add.graphics();
-    g.fillStyle(0xffc857, 1);
-    g.fillRect(0, 0, 12, 20);
-    g.generateTexture('missile', 12, 20);
-    g.destroy();
+    if (!this.scene.textures.exists('missile')) {
+      const g = this.scene.add.graphics();
+      g.fillStyle(0xffc857, 1);
+      g.fillRect(0, 0, 12, 20);
+      g.generateTexture('missile', 12, 20);
+      g.destroy();
+    }
     this.setTexture('missile');
   }
 
@@ -27,21 +34,29 @@ export default class Missile extends Phaser.Physics.Arcade.Image {
     this.setPosition(x, y);
     this.target = target;
     this.elapsed = 0;
+    const body = this.body as Phaser.Physics.Arcade.Body | undefined;
+    body?.setVelocity(0, 0);
   }
 
   preUpdate(time: number, delta: number): void {
     super.preUpdate(time, delta);
     this.elapsed += delta;
+    const body = this.body as Phaser.Physics.Arcade.Body | undefined;
     if (!this.target || !this.target.active) {
-      this.body.velocity.y = -this.speed;
+      if (body) {
+        body.velocity.y = -this.speed;
+      }
     } else {
       const angle = Phaser.Math.Angle.Between(this.x, this.y, this.target.x, this.target.y);
-      this.scene.physics.velocityFromRotation(angle, this.speed, this.body.velocity);
+      if (body) {
+        this.scene.physics.velocityFromRotation(angle, this.speed, body.velocity);
+      }
       this.setRotation(angle);
     }
     if (this.elapsed > this.lifespan) {
       this.setActive(false);
       this.setVisible(false);
+      body?.stop();
     }
   }
 }

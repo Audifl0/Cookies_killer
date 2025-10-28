@@ -21,13 +21,16 @@ export default class EffectsFactory {
   }
 
   trail(target: Phaser.GameObjects.GameObject): Phaser.GameObjects.Particles.ParticleEmitterManager {
-    return this.scene.add.particles(0, 0, 'particle', {
-      follow: target,
+    const manager = this.scene.add.particles(0, 0, 'particle', {
       speed: 20,
       scale: { start: 0.4, end: 0 },
       lifespan: 300,
       tint: 0x95a2ff,
       frequency: 50
     });
+    manager.emitters.list.forEach((emitter) => {
+      emitter.startFollow(target);
+    });
+    return manager;
   }
 }

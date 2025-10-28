@@ -10,7 +10,7 @@
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
     "typeRoots": ["./types", "./node_modules/@types"],
-    "types": ["vite/client"],
+    "types": ["vite/client", "jest"],
     "baseUrl": "./src",
     "paths": {
       "@core/*": ["core/*"],

@@ -36,8 +36,22 @@ export default class AudioManager {
   updateSettings(settings: AudioSettings): void {
     this.settings = settings;
     if (this.music) {
-      this.music.setMute(settings.muted);
-      this.music.setVolume(settings.music);
+      const music = this.music as Phaser.Sound.BaseSound & {
+        setMute?: (muted: boolean) => void;
+        setVolume?: (volume: number) => void;
+        mute?: boolean;
+        volume?: number;
+      };
+      if (music.setMute) {
+        music.setMute(settings.muted);
+      } else {
+        music.mute = settings.muted;
+      }
+      if (music.setVolume) {
+        music.setVolume(settings.music);
+      } else {
+        music.volume = settings.music;
+      }
       if (settings.muted && this.music.isPlaying) {
         this.music.pause();
       } else if (!settings.muted && !this.music.isPlaying) {

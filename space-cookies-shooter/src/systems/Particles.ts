@@ -1,8 +1,10 @@
 import Phaser from 'phaser';
 
+type ParticleEmitterManager = Phaser.GameObjects.Particles.ParticleEmitterManager;
+
 export default class Particles {
   scene: Phaser.Scene;
-  emitter?: Phaser.GameObjects.Particles.ParticleEmitterManager;
+  emitter?: ParticleEmitterManager;
 
   constructor(scene: Phaser.Scene) {
     this.scene = scene;

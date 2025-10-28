@@ -1,6 +1,6 @@
 import Phaser from 'phaser';
 
-export default class Bullet extends Phaser.Physics.Arcade.Image {
+export default class Bullet extends Phaser.Physics.Arcade.Sprite {
   damage = 10;
   lifespan = 1200;
   elapsed = 0;
@@ -9,14 +9,21 @@ export default class Bullet extends Phaser.Physics.Arcade.Image {
   constructor(scene: Phaser.Scene) {
     super(scene, 0, 0, 'bullet');
     this.createTexture();
+    scene.add.existing(this);
+    scene.physics.add.existing(this);
+    this.setActive(false);
+    this.setVisible(false);
+    (this.body as Phaser.Physics.Arcade.Body).allowGravity = false;
   }
 
   createTexture(): void {
-    const g = this.scene.add.graphics();
-    g.fillStyle(0xf4e3b2, 1);
-    g.fillCircle(4, 4, 4);
-    g.generateTexture('bullet', 8, 8);
-    g.destroy();
+    if (!this.scene.textures.exists('bullet')) {
+      const g = this.scene.add.graphics();
+      g.fillStyle(0xf4e3b2, 1);
+      g.fillCircle(4, 4, 4);
+      g.generateTexture('bullet', 8, 8);
+      g.destroy();
+    }
     this.setTexture('bullet');
   }
 
@@ -24,7 +31,10 @@ export default class Bullet extends Phaser.Physics.Arcade.Image {
     this.setActive(true);
     this.setVisible(true);
     this.setPosition(x, y);
-    this.scene.physics.velocityFromRotation(angle, speed, this.body.velocity);
+    const body = this.body as Phaser.Physics.Arcade.Body | undefined;
+    if (body) {
+      this.scene.physics.velocityFromRotation(angle, speed, body.velocity);
+    }
     this.setRotation(angle);
     this.elapsed = 0;
   }
@@ -35,7 +45,8 @@ export default class Bullet extends Phaser.Physics.Arcade.Image {
     if (this.elapsed >= this.lifespan) {
       this.setActive(false);
       this.setVisible(false);
-      this.body.stop();
+      const body = this.body as Phaser.Physics.Arcade.Body | undefined;
+      body?.stop();
     }
   }
 }
