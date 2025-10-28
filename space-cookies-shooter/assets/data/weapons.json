@@ -1,0 +1,59 @@
+{
+  "version": 1,
+  "weapons": [
+    {
+      "id": "basic_cannon",
+      "name": "Canon Standard",
+      "rate": 400,
+      "damage": 12,
+      "spread": 0,
+      "projectileSpeed": 500,
+      "effects": []
+    },
+    {
+      "id": "rapid_cannon",
+      "name": "Canon Rapide",
+      "rate": 200,
+      "damage": 7,
+      "spread": 6,
+      "projectileSpeed": 600,
+      "effects": ["overheat"]
+    },
+    {
+      "id": "triple_shot",
+      "name": "Tir Triple",
+      "rate": 650,
+      "damage": 10,
+      "spread": 18,
+      "projectileSpeed": 520,
+      "effects": ["multi"]
+    },
+    {
+      "id": "railgun",
+      "name": "Railgun",
+      "rate": 1200,
+      "damage": 45,
+      "spread": 0,
+      "projectileSpeed": 900,
+      "effects": ["pierce", "shock"]
+    },
+    {
+      "id": "homing_missile",
+      "name": "Missile Auto-Guidé",
+      "rate": 1500,
+      "damage": 60,
+      "spread": 0,
+      "projectileSpeed": 380,
+      "effects": ["explosion"]
+    },
+    {
+      "id": "beam",
+      "name": "Faisceau Continu",
+      "rate": 100,
+      "damage": 6,
+      "spread": 0,
+      "projectileSpeed": 0,
+      "effects": ["burn"]
+    }
+  ]
+}
