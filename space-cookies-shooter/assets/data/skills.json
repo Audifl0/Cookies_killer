@@ -1,0 +1,35 @@
+{
+  "version": 1,
+  "branches": [
+    {
+      "id": "offense",
+      "name": "Offensif",
+      "color": "#f2a65a",
+      "nodes": [
+        { "id": "offense_1", "name": "Pointes de Chocolat", "description": "+10% dégâts", "cost": 1 },
+        { "id": "offense_2", "name": "Critiques Croquants", "description": "+8% chance crit", "cost": 1, "requires": "offense_1" },
+        { "id": "offense_3", "name": "Tempête Biscuit", "description": "+15% cadence", "cost": 2, "requires": "offense_2" }
+      ]
+    },
+    {
+      "id": "defense",
+      "name": "Défensif",
+      "color": "#5ec2b0",
+      "nodes": [
+        { "id": "defense_1", "name": "Glaçage Protecteur", "description": "+20% bouclier", "cost": 1 },
+        { "id": "defense_2", "name": "Nougat Résilient", "description": "Bouclier se recharge plus vite", "cost": 2, "requires": "defense_1" },
+        { "id": "defense_3", "name": "Caramel élastique", "description": "+1 seconde d'i-frames après dash", "cost": 2, "requires": "defense_2" }
+      ]
+    },
+    {
+      "id": "mobility",
+      "name": "Mobilité",
+      "color": "#7aa0ff",
+      "nodes": [
+        { "id": "mobility_1", "name": "Pépites Aérodynamiques", "description": "+12% vitesse", "cost": 1 },
+        { "id": "mobility_2", "name": "Aimant Turbo", "description": "+25% portée ramassage", "cost": 1, "requires": "mobility_1" },
+        { "id": "mobility_3", "name": "Hyper Dash", "description": "Recharge de dash -20%", "cost": 2, "requires": "mobility_2" }
+      ]
+    }
+  ]
+}
